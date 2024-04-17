@@ -20,4 +20,12 @@ public class CoderService {
     public List<Coder> findAll() {
         return this.obCoderRepository.findAll();
     }
+
+    /*
+     * Método para crear un nuevo coder, se hace uso del repositorio y
+     * del método save, el cual se encarga de insertar en la base de datos
+     */
+    public Coder create(Coder objCoder) {
+        return this.obCoderRepository.save(objCoder);
+    }
 }

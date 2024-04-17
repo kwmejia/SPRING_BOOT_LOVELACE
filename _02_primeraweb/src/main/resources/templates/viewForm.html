@@ -16,17 +16,25 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+
+    <link rel="stylesheet" th:href="@{/styles/style.css}" />
   </head>
   <body>
     <h1 class="text-center fw-bold my-5">Formulario</h1>
 
     <div class="container d-flex justify-content-center">
-      <form class="w-50 bg-light rounded-3 p-5">
+      <form
+        th:object="${coder}"
+        th:action="${action}"
+        method="post"
+        class="w-50 bg-light rounded-3 p-5"
+      >
         <div class="form-floating mb-3">
           <input
             type="text"
             class="form-control"
             id="name"
+            th:field="*{name}"
             placeholder="Nombre Coder"
           />
           <label for="name">Nombre coder</label>
@@ -36,6 +44,7 @@
             type="number"
             min="0"
             max="150"
+            th:field="*{age}"
             class="form-control"
             id="age"
             placeholder="Edad Coder"
@@ -47,11 +56,17 @@
           <input
             type="text"
             minlength="0"
+            th:field="*{clan}"
             class="form-control"
             id="clan"
             placeholder="Clan Coder"
           />
           <label for="clan">Clan coder</label>
+        </div>
+
+        <div class="d-flex gap-3">
+          <button type="submit" class="btn btn-primary">Enviar</button>
+          <a href="/" class="btn btn-secondary">Cancelar</a>
         </div>
       </form>
     </div>
