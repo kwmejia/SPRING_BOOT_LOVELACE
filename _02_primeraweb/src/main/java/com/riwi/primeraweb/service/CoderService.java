@@ -46,4 +46,26 @@ public class CoderService {
         /* Busca un coder por ID y encaso de no ser encontrado devuelve un null */
         return this.obCoderRepository.findById(id).orElse(null);
     }
+
+    /**
+     * Método para actulizar un coder
+     */
+    public Coder update(Long id, Coder coder) {
+        /* 1. Buscar el coder por ID */
+        Coder objCoderDB = this.findById(id);
+
+        /*
+         * Verificamos que el coder exista
+         */
+        if (objCoderDB == null)
+            return null;
+
+        /* Actualizar el coder viejo */
+        objCoderDB = coder;
+        /**
+         * El método save verifica, si el objeto tiene la llave primaria
+         * llena entonces actualizar de lo contrario , crea un nuevo registro
+         */
+        return this.obCoderRepository.save(objCoderDB);
+    }
 }

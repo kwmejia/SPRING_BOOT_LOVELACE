@@ -78,8 +78,14 @@ public class CoderController {
     public String updateCoder(@PathVariable Long id, Model model) {
         Coder objCoder = this.objCoderService.findById(id);
         model.addAttribute("coder", objCoder);
-        model.addAttribute("action", "");
+        model.addAttribute("action", "/edit/" + id);
         return "viewForm";
+    }
+
+    @PostMapping("edit/{id}")
+    public String updateCoder(@PathVariable Long id, @ModelAttribute Coder objCoder) {
+        this.objCoderService.update(id, objCoder);
+        return "redirect:/";
     }
 
 }
