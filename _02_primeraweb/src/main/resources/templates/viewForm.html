@@ -36,6 +36,7 @@
             id="name"
             th:field="*{name}"
             placeholder="Nombre Coder"
+            th:value="${coder.name}"
           />
           <label for="name">Nombre coder</label>
         </div>
@@ -47,6 +48,7 @@
             th:field="*{age}"
             class="form-control"
             id="age"
+            th:value="${coder.age}"
             placeholder="Edad Coder"
           />
           <label for="age">Edad coder</label>
@@ -58,6 +60,7 @@
             minlength="0"
             th:field="*{clan}"
             class="form-control"
+            th:value="${coder.clan}"
             id="clan"
             placeholder="Clan Coder"
           />

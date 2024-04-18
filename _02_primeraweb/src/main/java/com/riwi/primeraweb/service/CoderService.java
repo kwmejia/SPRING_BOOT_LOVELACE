@@ -1,5 +1,6 @@
 package com.riwi.primeraweb.service;
 
+import java.security.PublicKey;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,22 @@ public class CoderService {
      */
     public Coder create(Coder objCoder) {
         return this.obCoderRepository.save(objCoder);
+    }
+
+    /**
+     * 
+     * Método para eliminar un coder (deleteById)
+     */
+    public void delete(Long id) {
+        // Llamar al repositorio
+        this.obCoderRepository.deleteById(id);
+    }
+
+    /**
+     * Método para obtener por Id
+     */
+    public Coder findById(Long id) {
+        /* Busca un coder por ID y encaso de no ser encontrado devuelve un null */
+        return this.obCoderRepository.findById(id).orElse(null);
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -57,4 +58,28 @@ public class CoderController {
         this.objCoderService.create(objCoder);
         return "redirect:/";
     }
+
+    /**
+     * Controlador para eliminar recibirá como parametro el id por URL
+     * 
+     * @PathVariable funciona para obtener el valor de una variable en la URL
+     *               Solo si es de tipo path (ejm: /delete/10) donde el 10 es
+     *               dinamico
+     */
+    @GetMapping("/delete/{id}")
+    public String deleteCoder(@PathVariable Long id) {
+        this.objCoderService.delete(id);
+
+        // Redireccionar a la lista de coders
+        return "redirect:/";
+    }
+
+    @GetMapping("/update/{id}")
+    public String updateCoder(@PathVariable Long id, Model model) {
+        Coder objCoder = this.objCoderService.findById(id);
+        model.addAttribute("coder", objCoder);
+        model.addAttribute("action", "");
+        return "viewForm";
+    }
+
 }
