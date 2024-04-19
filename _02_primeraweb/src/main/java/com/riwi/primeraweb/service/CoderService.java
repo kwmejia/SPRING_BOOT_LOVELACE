@@ -4,6 +4,9 @@ import java.security.PublicKey;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.riwi.primeraweb.entity.Coder;
@@ -20,6 +23,18 @@ public class CoderService {
 
     public List<Coder> findAll() {
         return this.obCoderRepository.findAll();
+    }
+
+    public Page<Coder> findAllPaginate(int page, int size) {
+        /* Validar que la página no sea menor a 0 */
+        if (page < 0) {
+            page = 0;
+        }
+
+        /* Crear la paginación */
+        Pageable objPage = PageRequest.of(page, size);
+
+        return this.obCoderRepository.findAll(objPage);
     }
 
     /*

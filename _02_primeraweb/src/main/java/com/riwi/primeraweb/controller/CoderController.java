@@ -3,6 +3,7 @@ package com.riwi.primeraweb.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.riwi.primeraweb.entity.Coder;
 import com.riwi.primeraweb.service.CoderService;
@@ -28,12 +30,17 @@ public class CoderController {
      * Método para mostrar la vista y enviarle toda la lista de coders
      */
     @GetMapping
-    public String showViewCoder(Model objModel) {
+    public String showViewCoder(Model objModel,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "2") int size) {
+
         /* Obtenemos la lista de coders */
-        List<Coder> listCoders = this.objCoderService.findAll();
+        Page<Coder> listCoders = this.objCoderService.findAllPaginate(page - 1, size);
 
         /* Cargamos la lista en el modelo */
         objModel.addAttribute("listCoders", listCoders); // LLave-valor
+        objModel.addAttribute("currentPage", page); // LLave-valor
+        objModel.addAttribute("totalPage", listCoders.getTotalPages()); // LLave-valor
         return "viewCoders";
     }
 
