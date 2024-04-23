@@ -20,8 +20,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Product save(Product objProduct) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return this.objProductRepository.save(objProduct);
     }
 
     @Override
@@ -31,8 +30,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Product getById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        return this.objProductRepository.findById(id).orElseThrow();
     }
 
     @Override
@@ -43,8 +41,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Product update(Product objProduct) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        return this.objProductRepository.save(objProduct);
     }
 
 }
