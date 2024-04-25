@@ -16,7 +16,7 @@ public interface IProductService {
 
     public Product getById(Long id);
 
-    public boolean delete(Long id);
+    public void delete(Long id);
 
     public Product update(Product objProduct);
 
