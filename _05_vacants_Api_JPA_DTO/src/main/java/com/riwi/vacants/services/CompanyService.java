@@ -16,6 +16,7 @@ import com.riwi.vacants.services.interfaces.ICompanyService;
 import com.riwi.vacants.utils.dto.request.CompanyRequest;
 import com.riwi.vacants.utils.dto.response.CompanyResponse;
 import com.riwi.vacants.utils.dto.response.VacantToCompanyResponse;
+import com.riwi.vacants.utils.exceptions.IdNotFoundException;
 
 import lombok.AllArgsConstructor;
 
@@ -43,8 +44,14 @@ public class CompanyService implements ICompanyService {
 
     @Override
     public CompanyResponse update(String id, CompanyRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        // Buscamos la compañia con el id
+        Company company = this.find(id);
+        // Llenamos la compañia con los nuevos datos a la vez que lo convertimos en
+        // entidad
+        Company companyUpdate = this.requestToCompany(request, company);
+
+        // Guardamos la compañia actualizada y convertimos la respuesta
+        return this.entityToResponse(this.companyRepository.save(companyUpdate));
     }
 
     @Override
@@ -73,7 +80,7 @@ public class CompanyService implements ICompanyService {
     }
 
     private Company find(String id) {
-        return this.companyRepository.findById(id).orElseThrow();
+        return this.companyRepository.findById(id).orElseThrow(() -> new IdNotFoundException("Company"));
     }
 
     /**
