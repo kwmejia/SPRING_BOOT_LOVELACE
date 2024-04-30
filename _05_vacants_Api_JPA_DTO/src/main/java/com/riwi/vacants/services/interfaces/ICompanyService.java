@@ -4,5 +4,7 @@ import com.riwi.vacants.utils.dto.request.CompanyRequest;
 import com.riwi.vacants.utils.dto.response.CompanyResponse;
 
 public interface ICompanyService
-        extends CrudService<CompanyRequest, CompanyResponse, String> {
+                extends CrudService<CompanyRequest, CompanyResponse, String> {
+
+        public CompanyResponse getById(String id);
 }
