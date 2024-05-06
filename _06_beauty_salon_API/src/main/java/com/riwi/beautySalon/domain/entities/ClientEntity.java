@@ -1,6 +1,5 @@
 package com.riwi.beautySalon.domain.entities;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -10,7 +9,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,39 +17,31 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Entity( name = "service")
+@Entity(name = "client")
 @Data
-@Builder //Patron de diseño para clases
-/**
- *  Clase clase= new Clase
- *  clase.setName("sadsa")
- *  clase.setAge(23); 
- * 
- *  Clase.builder()
- *  .name("dsadsa")
- *  .age(12)
- *  .build();
- */
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class ServiceEntity {
-    @Id // -> 1
+@AllArgsConstructor
+public class ClientEntity {
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(length = 100, nullable = false)
-    private String name;
-    @Lob // -> Mapea a Text
-    private String description;
-    @Column(nullable = false)
-    private BigDecimal price;
+    private String firstName;
+    @Column(length = 100, nullable = false)
+    private String lastName;
+    @Column(length = 20)
+    private String phone;
+    @Column(length = 100)
+    private String email;
 
     @ToString.Exclude
-    @EqualsAndHashCode.Exclude //Para no crear otro espacio de memoria
+    @EqualsAndHashCode.Exclude // @121312312
     @OneToMany(
-        cascade = CascadeType.ALL,
         fetch = FetchType.EAGER,
-        mappedBy = "service",
-        orphanRemoval = false
+        mappedBy = "client",
+        cascade = CascadeType.ALL,
+        orphanRemoval = false  
     )
     private List<Appointment> appointments;
 }
