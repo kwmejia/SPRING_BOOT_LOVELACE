@@ -52,6 +52,7 @@ public class VacantController {
     @ApiResponse(responseCode = "400", description = "Cuando el id no es válido", content = {
             @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))
     })
+
     @Operation(summary = "Lista una vacante por id", description = "Debes enviar el id de la vacante a buscar")
     @GetMapping(path = "/{id}")
     public ResponseEntity<VacantResponse> get(@PathVariable Long id) {
