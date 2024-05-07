@@ -2,7 +2,6 @@ package com.riwi.beautySalon.api.dto.response;
 
 import java.util.List;
 
-import com.riwi.beautySalon.domain.entities.Appointment;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
