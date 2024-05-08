@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.riwi.beautySalon.api.dto.errors.BaseErrorResp;
 import com.riwi.beautySalon.api.dto.errors.ErrorsResp;
+import com.riwi.beautySalon.utils.exceptions.BadRequestException;
 
 /*
  * RestControllerAdvice = Controlador de errores 
@@ -51,5 +52,25 @@ public class BadRequestController {
                 .status(HttpStatus.BAD_REQUEST.name()) //BAD_REQUEST
                 .errors(errors) // [ { "field": "mal", "error": "mal"} ]
                 .build();
+    }
+
+
+    @ExceptionHandler(BadRequestException.class)
+    public BaseErrorResp handleError(BadRequestException exception){
+        List<Map<String,String>> errors = new ArrayList<>();
+
+        Map<String,String> error = new HashMap<>();
+        
+        error.put("id", exception.getMessage());
+
+        errors.add(error);
+
+        
+        return ErrorsResp.builder()
+                .code(HttpStatus.BAD_REQUEST.value()) //400
+                .status(HttpStatus.BAD_REQUEST.name()) //BAD_REQUEST
+                .errors(errors) // [ { "field": "mal", "error": "mal"} ]
+                .build();
+
     }
 }
