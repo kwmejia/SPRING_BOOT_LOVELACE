@@ -4,6 +4,7 @@ import com.riwi.beautySalon.utils.enums.RoleEmployee;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -43,6 +44,6 @@ public class EmployeeReq {
     )
     private String phone;
     
-    @NotBlank( message = "El rol es requerido")
+    @NotNull( message = "El rol es requerido")
     private RoleEmployee role;
 }

@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,8 +16,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AppointmentReq {
+    
     @FutureOrPresent(message = "La fecha y hora debe ser futura")
-    @NotBlank(message = "La fecha y hora de la cita es requeridas")
+    @NotNull(message = "La fecha y hora de la cita es requeridas")
     private LocalDateTime dateTime;
     @Min(value = 5)
     @Max(value = 760)
@@ -34,5 +34,5 @@ public class AppointmentReq {
     @NotNull(message = "El id del empleado es obligatorio")
     @Min(value = 1, message = "El id debe ser mayor a cero")
     private Long employeeId;
-
 }
+

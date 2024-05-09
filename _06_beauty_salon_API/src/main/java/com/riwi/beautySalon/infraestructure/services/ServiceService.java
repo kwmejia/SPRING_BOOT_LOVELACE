@@ -12,6 +12,7 @@ import com.riwi.beautySalon.domain.entities.ServiceEntity;
 import com.riwi.beautySalon.domain.repositories.ServiceRepository;
 import com.riwi.beautySalon.infraestructure.abstract_service.IServiceService;
 import com.riwi.beautySalon.utils.enums.SortType;
+import com.riwi.beautySalon.utils.exceptions.BadRequestException;
 
 import lombok.AllArgsConstructor;
 
@@ -32,20 +33,23 @@ public class ServiceService implements IServiceService{
 
     @Override
     public ServiceResp get(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+       return this.entityToResp(this.find(id));
     }
 
     @Override
     public ServiceResp update(ServiceReq request, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+       ServiceEntity service = this.find(id);
+
+       service = this.requestToEntity(request);
+       service.setId(id);
+
+       return this.entityToResp(this.serviceRepository.save(service));
+
     }
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+       this.serviceRepository.delete(this.find(id));
     }
 
     @Override
@@ -93,6 +97,6 @@ public class ServiceService implements IServiceService{
     private ServiceEntity find(Long id){
 
         return this.serviceRepository.findById(id)
-            .orElseThrow();
+            .orElseThrow(()-> new BadRequestException("No hay registros en el id suministrado"));
     }
 }
