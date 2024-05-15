@@ -1,6 +1,9 @@
 package com.riwi.beautySalon.infraestructure.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.riwi.beautySalon.api.dto.request.LoginReq;
@@ -22,11 +25,31 @@ public class AuthService implements IAuthService {
     private final UserRepository userRepository;
     @Autowired
     private final JwtService jwtService;
+    //Interfaz que contiene los servicio de codificación
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public AuthResp login(LoginReq request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'login'");
+    
+
+        try {
+            //Autenticarnos en la app
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword())
+            );            
+        } catch (Exception e) {
+            throw new BadRequestException("Credenciales incorrectas");
+        }
+
+        User user = this.findUser(request.getUserName());
+
+        return AuthResp.builder()
+                .message("Autenticado correctamente")
+                .token(this.jwtService.getToken(user))
+                .build();
     }
 
     @Override
@@ -41,7 +64,7 @@ public class AuthService implements IAuthService {
         /*Construir el usuario */
         User user = User.builder()
                 .userName(request.getUserName())
-                .password(request.getPassword())
+                .password(this.passwordEncoder.encode(request.getPassword()))
                 .role(Role.CLIENT)
                 .build();
 
