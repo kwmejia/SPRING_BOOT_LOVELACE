@@ -11,6 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.riwi.beautySalon.infraestructure.helpers.JwtFilter;
+import com.riwi.beautySalon.utils.enums.Role;
 
 import lombok.AllArgsConstructor;
 
@@ -26,6 +27,8 @@ public class SecurityConfig {
 
     //Crear rutas publicas
     private final String[] PUBLIC_RESOURCES  = { "/services/public/get","/auth/**" };
+
+    private final String[] ADMIN_RESOURCES = { "register/employee"};
     
     /**
      * 
@@ -42,6 +45,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable()) //Desabilitar protección csrf -> Statelest
                 .authorizeHttpRequests(authRequest -> authRequest
+                    .requestMatchers(ADMIN_RESOURCES).hasAuthority(Role.ADMIN.name())
                     .requestMatchers(PUBLIC_RESOURCES).permitAll() //Configurar rutas publicas
                     .anyRequest().authenticated() 
                 )

@@ -77,7 +77,7 @@ public class AuthService implements IAuthService {
         User user = User.builder()
                 .userName(request.getUserName())
                 .password(this.passwordEncoder.encode(request.getPassword()))
-                .role(Role.CLIENT)
+                .role(Role.ADMIN)
                 .build();
 
         /** Guardamos el user en la db */
@@ -108,6 +108,7 @@ public class AuthService implements IAuthService {
              .phone(request.getPhone())
              .role(request.getRole())
              .user(user)
+             .appointments(new ArrayList<>())
              .build();
 
         this.employeeRepository.save(employee);
