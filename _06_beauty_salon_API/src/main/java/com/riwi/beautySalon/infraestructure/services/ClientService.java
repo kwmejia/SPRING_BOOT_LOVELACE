@@ -101,6 +101,7 @@ public class ClientService implements IClientService {
 
     private AppointmentBasicResp entityToResponseAppointment(Appointment entity){
 
+        
         ServiceResp service = new ServiceResp();
         BeanUtils.copyProperties(entity.getService(), service);
 
