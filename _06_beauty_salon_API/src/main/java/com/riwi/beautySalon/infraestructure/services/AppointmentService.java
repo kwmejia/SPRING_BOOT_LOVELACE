@@ -24,6 +24,7 @@ import com.riwi.beautySalon.domain.repositories.ClientRepository;
 import com.riwi.beautySalon.domain.repositories.EmployeeRepository;
 import com.riwi.beautySalon.domain.repositories.ServiceRepository;
 import com.riwi.beautySalon.infraestructure.abstract_service.IAppointmentService;
+import com.riwi.beautySalon.infraestructure.helpers.EmailHelper;
 import com.riwi.beautySalon.utils.enums.SortType;
 import com.riwi.beautySalon.utils.exceptions.BadRequestException;
 
@@ -47,6 +48,8 @@ public class AppointmentService implements IAppointmentService {
     private final ClientRepository clientRepository;
     @Autowired
     private final ServiceRepository serviceRepository;
+    @Autowired
+    private final EmailHelper emailHelper;
 
     @Override
     public AppointmentResp create(AppointmentReq request) {
@@ -72,6 +75,14 @@ public class AppointmentService implements IAppointmentService {
         appointment.setClient(client);
         appointment.setService(service);
         appointment.setEmployee(employee);
+
+        if (client.getEmail() != null) {
+            emailHelper.sendEmail(
+                client.getEmail() ,
+                client.getFirstName(), 
+                employee.getFirstName(),
+                appointment.getDateTime());
+        }
 
         return this.entityToResponse(this.appointmentRepository.save(appointment));
     }
