@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db: # Nombre del servicio
+    image: mysql # Imagen de mysql
+    container_name: db_microservicios #Nombre del contendo
+    restart: always #Reiniciar el contenedor siempre
+    environment: #Variables de entorno
+      MYSQL_ROOT_PASSWORD: root # Contraseña de root
+      MYSQL_DATABASE: riwi_db_lovelace # Nombre de la base de datos
+      MYSQL_USER: user # Usuario de la base de datos
+      MYSQL_PASSWORD: password # Contraseña del usuario
+    volumes:
+      - my-db:/var/lib/mysql #Volumen de la base de datos 
+    ports:
+      - "3307:3306" #Puerto de la base de datos
+volumes:
+  my-db: #Nombre del volumen
