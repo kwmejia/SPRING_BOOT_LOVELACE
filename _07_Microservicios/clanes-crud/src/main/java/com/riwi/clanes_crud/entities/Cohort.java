@@ -27,4 +27,5 @@ public class Cohort {
     private LocalDateTime updatedAt = LocalDateTime.now();
     @Builder.Default
     private Boolean isActive = true;
+    
 }
