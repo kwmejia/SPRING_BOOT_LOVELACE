@@ -13,7 +13,6 @@ import com.riwi.clanes_crud.entities.Clan;
 public interface ClanRepository  
     extends JpaRepository<Clan, Long>  {
     
-
     @Query("SELECT c FROM clan c WHERE"+
             "(:name IS NULL OR c.name LIKE %:name%) AND"+
             "(:description IS NULL OR c.description LIKE %:description%) AND"+
