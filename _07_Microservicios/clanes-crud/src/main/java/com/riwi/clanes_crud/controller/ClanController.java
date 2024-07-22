@@ -32,13 +32,15 @@ public class ClanController {
     ) {
 
         ClanGetRequest request = ClanGetRequest.builder()
-            .page(page)
+            .page(page-1)
             .size(size)
             .name(name)
             .description(description)
             .isActive(isActive)
             .cohortId(cohortId)
             .build();
+
+        System.out.println(request);
 
         return ResponseEntity.ok(this.clanService.getClans(request));
     }
