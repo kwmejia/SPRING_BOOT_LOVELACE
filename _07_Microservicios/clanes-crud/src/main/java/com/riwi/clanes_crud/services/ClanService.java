@@ -1,5 +1,7 @@
 package com.riwi.clanes_crud.services;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -74,6 +76,7 @@ public class ClanService implements IClanService {
 
         oldClan.setName(clan.getName());
         oldClan.setDescription(clan.getDescription());
+        oldClan.setUpdatedAt(LocalDateTime.now());
       
 
         log.info("Updating clan: {}", oldClan);
@@ -87,6 +90,7 @@ public class ClanService implements IClanService {
                 .orElseThrow(() -> new RuntimeException("Clan not found"));
 
         clan.setIsActive(false);
+        clan.setUpdatedAt(LocalDateTime.now());
 
         log.info("Disabling clan: {}", clan);
 
