@@ -1,0 +1,10 @@
+# spring.application.name=service-
+spring:
+    application:
+        name: service-registry
+server:
+    port: 8761 # Port on which the service will run
+eureka:
+    client:
+        registerWithEureka: false # Para que no se registre a si mismo
+        fetchRegistry: false # Para que no busque otros servicios

@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: clanes-crud
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/riwi_db_lovelace
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 20000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+server:
+  port: 0
+  servlet:
+    context-path: /api/v1
+
+#Eureka configuration
+eureka:
+    instance:
+        hostname: "${spring.application.name}:${random.value}"
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
