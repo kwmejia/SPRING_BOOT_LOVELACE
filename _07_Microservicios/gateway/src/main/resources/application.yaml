@@ -17,7 +17,7 @@ spring:
                   predicates:
                     - Path=/api/v1/clans/**
 server:
-    port: 8080
+    port: 2020
 
 #Eureka confing
 eureka:
